@@ -1,10 +1,13 @@
-CourseBook Revision App
-Overview
-This is a Streamlit-based web application designed for school students to revise from their coursebooks, specifically NCERT Class XI Physics PDFs. It includes a source selector, PDF viewer, quiz generator, progress tracking, and a ChatGPT-inspired chat interface with RAG-based answers and citations.
-Setup Instructions
+# CourseBook Revision App
 
-Clone the repository: git clone <repo-url>
-Install dependencies:pip install streamlit PyPDF2 langchain langchain-community sentence-transformers google-generativeai python-dotenv
+## Overview
+This is a Streamlit-based web application for school students to revise from coursebooks, specifically NCERT Class XI Physics PDFs. It includes a source selector, PDF viewer, quiz generator, progress tracking, and a ChatGPT-inspired chat interface with RAG-based answers and citations.
+
+## Setup Instructions
+1. Clone the repository: `git clone <repo-url>`
+2. Install dependencies:
+   ```bash
+   pip install streamlit PyPDF2 langchain langchain-community sentence-transformers google-generativeai python-dotenv requests
 
 
 Set up a .env file with your Google API key:GOOGLE_API_KEY=your_api_key_here
@@ -18,42 +21,42 @@ Open the provided local URL in a browser.
 How to Run
 
 Launch the app with streamlit run app.py.
-Use the sidebar to select a PDF, upload new PDFs, generate quizzes, or manage chats.
+Use the sidebar to select a PDF, upload new PDFs (e.g., "Md Sohail Ali_CV.pdf"), generate quizzes, or manage chats.
 View PDFs in the left column, interact with quizzes or chat in the right column, and track progress at the bottom.
 
 Features Implemented
 Must-Have Features
 
-Source Selector: Dropdown in the sidebar to select "All PDFs" or a specific PDF. Pre-seeded with NCERT Physics PDFs; supports user uploads.
-PDF Viewer: Displays the selected PDF in an iframe (local files only; URLs need local download for viewing).
-Quiz Generator Engine: Generates MCQs, SAQs, and LAQs using Gemini (mocked as fallback). Users can answer, submit, and view explanations with citations.
-Progress Tracking: Dashboard shows quiz attempts, scores, strengths, and weaknesses, with detailed results.
+Source Selector: Dropdown to select "All PDFs" or a specific PDF (e.g., "NCERT Physics Ch1.pdf"). Pre-seeded with NCERT PDFs; supports uploads up to 200MB.
+PDF Viewer: Displays selected PDF in an iframe, handling both local files and URLs.
+Quiz Generator Engine: Generates 1 MCQ, 1 SAQ, and 1 LAQ using Gemini (mock fallback). Users can answer, submit, and view explanations with citations.
+Progress Tracking: Dashboard shows attempts, scores, strengths, weaknesses, and detailed results.
 
 Nice-to-Have Features
 
-Chat UI: ChatGPT-inspired interface with a sidebar for chat history, new chat creation, and a main chat window. Responsive via Streamlit's layout="wide".
-RAG Answers with Citations: Enhanced the original RAG to include page numbers and snippets (e.g., "According to NCERT Physics Ch1.pdf, p. 23: ...").
-YouTube Video Recommender: Not implemented due to time constraints and lack of a reliable API for video search.
+Chat UI: ChatGPT-inspired with sidebar for chat history, new chat creation, and main chat window. Responsive via Streamlit's wide layout.
+RAG Answers with Citations: Includes page numbers and snippets (e.g., "According to NCERT Physics Ch1.pdf, p. 23: ...").
+YouTube Video Recommender: Not implemented due to time constraints.
 
 What's Missing
 
-PDF Viewer for URLs: The viewer works for uploaded PDFs but not for seeded URLs due to Streamlit's iframe limitations. Users must download NCERT PDFs locally.
-Dynamic Quiz Generation: Relies on Gemini, with a mock fallback if the API fails. A more robust quiz generator could be added.
-YouTube Video Recommender: Skipped due to complexity and time constraints.
-Advanced Progress Tracking: The dashboard is basic; could include topic-wise analytics or visualizations.
+PDF Viewer for Some URLs: URLs may fail due to CORS or network issues; users may need to download and upload PDFs.
+Dynamic Quiz Generation: Relies on Gemini with a mock fallback. Could be enhanced with more robust generation.
+YouTube Video Recommender: Skipped due to complexity and lack of a client-side API.
+Advanced Progress Tracking: Basic dashboard; could include charts or topic-wise analytics.
 
 Development Process
 
-Tech Stack: Streamlit, PyPDF2, LangChain, FAISS, HuggingFace embeddings, Google Gemini API.
-LLM Usage: Used Grok to enhance the original code, structure quiz generation prompts, and debug Streamlit layouts. Also used for generating mock quiz data.
+Tech Stack: Streamlit, PyPDF2, LangChain, FAISS, HuggingFace embeddings, Google Gemini API, requests.
+LLM Usage: Used Grok to fix the meta tensor error, enhance quiz prompts, and debug PDF viewer and Streamlit layout.
 Tradeoffs:
-Kept Streamlit for rapid development, sacrificing some UI flexibility compared to React.
-Used iframe for PDF viewing due to lack of a robust Streamlit PDF viewer component.
-Mocked quiz generation as a fallback to handle potential Gemini API issues.
-Skipped YouTube recommender to focus on core features within the deadline.
+Kept Streamlit for rapid development, limiting UI flexibility compared to React.
+Used iframe for PDF viewing; URL-based PDFs require downloading due to Streamlit limitations.
+Mocked quiz generation as a fallback for API reliability.
+Skipped YouTube recommender to meet deadline.
 
 
-Commits: Structured to show progress from adapting the original code to adding quiz, viewer, and progress features.
+Commits: Structured to show progress from error fixing to feature implementation.
 
 Live URL
 
@@ -62,14 +65,21 @@ Live URL
 Code Quality
 
 Modular functions for PDF processing, RAG, and quiz generation.
-Session state for persistent chat and quiz data.
-Clear error handling for PDF processing and API calls.
-Responsive layout using Streamlit columns and wide mode.
+Session state for persistent data.
+Error handling for PDF loading, API calls, and embeddings.
+Responsive layout with Streamlit columns and wide mode.
 
 Evaluation Notes
 
-Scope (50%): Covered all must-have features and partial nice-to-have features (chat UI, RAG with citations). Missed YouTube recommender.
+Scope (50%): Covered all must-have features and partial nice-to-have features (chat UI, RAG with citations).
 UI/UX (20%): Clean, intuitive Streamlit interface with sidebar and split layout.
-Responsiveness (10%): Responsive via Streamlit's wide layout and column system.
+Responsiveness (10%): Responsive via Streamlit's wide layout and columns.
 Code Quality (10%): Modular, documented code with error handling.
 ReadMe (10%): Detailed setup, features, and tradeoffs.
+
+Error Handling
+
+Fixed NotImplementedError: Cannot copy out of meta tensor by setting HuggingFaceEmbeddings to CPU.
+Added error handling for PDF viewer to gracefully handle URL or file issues.
+
+
