@@ -14,7 +14,7 @@ import requests
 
 # Load API key
 load_dotenv()
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+GOOGLE_API_KEY = "AIzaSyCEmxxWHry4P5uFMwJBjLrXveQAzc-W7y8"
 genai.configure(api_key=GOOGLE_API_KEY)
 
 # Streamlit page config
